@@ -64,3 +64,45 @@ userRoutes.post('/', UserController.create);
  *         description: Usuário deletado logicamente
  */
 userRoutes.delete('/:id', UserController.delete);
+
+
+/**
+ * @swagger
+ * /Users/{id}:
+ *   put:
+ *     
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *               lastName:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               phone:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               isActive:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: Usuário atualizado com sucesso
+ */
+
+userRoutes.put('/:id', UserController.update);
+
+
+

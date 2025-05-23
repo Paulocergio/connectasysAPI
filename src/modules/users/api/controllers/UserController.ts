@@ -2,11 +2,14 @@ import { Request, Response } from 'express';
 import { UserRepository } from '../../infrastructure/repositories/UserRepository';
 import { CreateUser } from '../../application/use_cases/CreateUser';
 import { DeleteUser } from '../../application/use_cases/DeleteUser';
+import { UpdateUser } from '../../application/use_cases/UpdateUser';
 
 
 const userRepository = new UserRepository();
 const createUser = new CreateUser(userRepository);
 const deleteUser = new DeleteUser(userRepository);
+const updateUser = new UpdateUser(userRepository);
+
 
 
 export class UserController {
@@ -33,16 +36,35 @@ export class UserController {
   }
 
   static async delete(req: Request, res: Response) {
+    const id = parseInt(req.params.id);
+
+    try {
+      await deleteUser.execute(id);
+      res.status(200).json({ message: `Usuário ${id} deletado (lógico)` });
+    } catch (error) {
+      console.error('[UserController.delete]', error);
+      res.status(500).json({ error: 'Erro ao deletar usuário' });
+    }
+  }
+  static async update(req: Request, res: Response) {
   const id = parseInt(req.params.id);
+  const data = req.body;
 
   try {
-    await deleteUser.execute(id);
-    res.status(200).json({ message: `Usuário ${id} deletado (lógico)` });
-  } catch (error) {
-    console.error('[UserController.delete]', error);
-    res.status(500).json({ error: 'Erro ao deletar usuário' });
+    await updateUser.execute(id, data);
+    res.status(200).json({ message: `Usuário ${id} atualizado com sucesso` });
+  } catch (error: any) {
+    if (error.code === '23505') {
+      res.status(409).json({ error: 'E-mail já está em uso por outro usuário' });
+    } else {
+      console.error('[UserController.update]', error);
+      res.status(500).json({ error: 'Erro ao atualizar usuário' });
+    }
   }
 }
 
-
+ 
 }
+
+
+
