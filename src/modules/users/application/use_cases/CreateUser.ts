@@ -8,5 +8,6 @@ export class CreateUser {
     const user = new User(0, firstName, lastName, email, new Date(), phone, password, isActive);
     await this.userRepository.create(user);
   }
+  
 
 }

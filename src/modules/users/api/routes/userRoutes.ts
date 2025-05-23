@@ -45,3 +45,22 @@ userRoutes.get('/', UserController.getAll);
  *         description: Usuário criado
  */
 userRoutes.post('/', UserController.create);
+
+/**
+ * @swagger
+ * /Users/{id}:
+ *   delete:
+ *    
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do usuário
+ *     responses:
+ *       200:
+ *         description: Usuário deletado logicamente
+ */
+userRoutes.delete('/:id', UserController.delete);

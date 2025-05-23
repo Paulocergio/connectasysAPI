@@ -3,6 +3,14 @@ import { IUserRepository } from '../../domain/repositories/IUserRepository';
 import { User } from '../../domain/entities/User';
 
 export class UserRepository implements IUserRepository {
+
+  async softDelete(id: number): Promise<void> {
+  await db.query(
+    `UPDATE users SET deleted_at = NOW() WHERE id = $1 AND deleted_at IS NULL`,
+    [id]
+  );
+}
+
   async findAll(): Promise<User[]> {
     const result = await db.query('SELECT * FROM users');
     return result.rows.map(
@@ -21,7 +29,6 @@ export class UserRepository implements IUserRepository {
     );
 
   }
-
 
   async create(user: User): Promise<void> {
     await db.query(
