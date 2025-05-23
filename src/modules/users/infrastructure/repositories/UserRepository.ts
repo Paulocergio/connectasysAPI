@@ -11,24 +11,26 @@ export class UserRepository implements IUserRepository {
     );
   }
 
-  async findAll(): Promise<User[]> {
-    const result = await db.query('SELECT * FROM users');
-    return result.rows.map(
-      (r: any) =>
-        new User(
-          r.id,
-          r.first_name,
-          r.last_name,
-          r.email,
-          r.created_at,
-          r.phone,
-          r.password,
-          r.is_active,
-          r.deleted_at
-        )
-    );
+ async findAll(): Promise<User[]> {
+  const result = await db.query(
+    'SELECT * FROM users WHERE deleted_at IS NULL'
+  );
 
-  }
+  return result.rows.map((r: any) =>
+    new User(
+      r.id,
+      r.first_name,
+      r.last_name,
+      r.email,
+      r.created_at,
+      r.phone,
+      r.password,
+      r.is_active,
+      r.deleted_at
+    )
+  );
+}
+
 
   async create(user: User): Promise<void> {
     await db.query(
