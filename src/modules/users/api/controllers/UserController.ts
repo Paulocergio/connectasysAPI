@@ -11,9 +11,22 @@ export class UserController {
     res.json(users);
   }
 
-  static async create(req: Request, res: Response) {
-    const { firstName, lastName, email } = req.body;
-    await createUser.execute(firstName, lastName, email);
-    res.status(201).send({ message: 'Usuário criado' });
+ static async create(req: Request, res: Response) {
+  const { firstName, lastName, email, phone, password, isActive } = req.body;
+
+  try {
+    await createUser.execute(firstName, lastName, email, phone, password, isActive);
+    res.status(201).json({ message: 'Usuário criado com sucesso' });
+
+  } catch (error: any) {
+    if (error.code === '23505') {
+      res.status(409).json({ error: 'Email já está em uso' }); 
+    } else {
+      console.error('[UserController.create]', error);
+      res.status(500).json({ error: 'Erro ao criar usuário' });
+    }
   }
+}
+
+
 }

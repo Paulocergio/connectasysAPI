@@ -34,6 +34,12 @@ userRoutes.get('/', UserController.getAll);
  *                 type: string
  *               email:
  *                 type: string
+ *               phone:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               isActive:
+ *                 type: boolean
  *     responses:
  *       201:
  *         description: Usuário criado
