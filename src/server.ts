@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { userRoutes } from './modules/users/api/routes/userRoutes';
 import { swaggerSpec, swaggerUi } from './infrastructure/swagger/swagger';
-
+import { customerRoutes } from './modules/Customer/api/routes/customerRoutes';  
 dotenv.config();
 
 const app = express();
@@ -30,6 +30,10 @@ app.get('/swagger.json', (_, res) => {
 app.get('/', (_, res) => {
   res.redirect('/swagger/');
 });
+
+
+app.use('/api/v1/Customers', customerRoutes);
+
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`✅ Server running at http://localhost:${process.env.PORT || 3000}`);
