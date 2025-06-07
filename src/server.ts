@@ -4,6 +4,10 @@ import dotenv from 'dotenv';
 import { userRoutes } from './modules/users/api/routes/userRoutes';
 import { swaggerSpec, swaggerUi } from './infrastructure/swagger/swagger';
 import { customerRoutes } from './modules/Customer/api/routes/customerRoutes';  
+import { stockRoutes } from './modules/stock/api/routes/stockRoutes';
+
+
+
 dotenv.config();
 
 const app = express();
@@ -33,6 +37,9 @@ app.get('/', (_, res) => {
 
 
 app.use('/api/v1/Customers', customerRoutes);
+
+app.use("/api/v1/Stock", stockRoutes);
+
 
 
 app.listen(process.env.PORT || 3000, () => {
