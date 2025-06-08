@@ -1,33 +1,43 @@
 import { Router } from 'express';
-import { StockController } from '../controllers/stockcontroller';
+import { ProductController } from '../controllers/productscontroller';
 
-export const stockRoutes = Router();
-const controller = new StockController();
+export const productsRoutes = Router();
+const controller = new ProductController();
 
 /**
  * @swagger
- * /Stock/products:
+ * tags:
+ *   name: Products
+ * 
+ */
+
+/**
+ * @swagger
+ * /Products/products:
  *   get:
- *     tags: [Stock]
- 
+ *     tags: [Products]
+ *     summary: Lista todos os produtos
  *     responses:
  *       200:
- *         description: Lista de produtos
+ *        
  */
-stockRoutes.get('/products', (req, res) => controller.getAllProducts(req, res));
+productsRoutes.get('/products', (req, res) => controller.getAllProducts(req, res));
 
 /**
  * @swagger
- * /Stock/products:
+ * /Products/products:
  *   post:
- *     tags: [Stock]
- *
+ *     tags: [Products]
+ *   
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - productName
+ *               - barcode
  *             properties:
  *               productName:
  *                 type: string
@@ -39,18 +49,19 @@ stockRoutes.get('/products', (req, res) => controller.getAllProducts(req, res));
  *       201:
  *         description: Produto cadastrado com sucesso
  */
-stockRoutes.post('/products', (req, res) => controller.createProduct(req, res));
+productsRoutes.post('/products', (req, res) => controller.createProduct(req, res));
 
 /**
  * @swagger
- * /Stock/products/{id}:
+ * /Products/products/{id}:
  *   put:
- *     tags: [Stock]
- *     summary: Atualiza um produto
+ *     tags: [Products]
+ *  
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
+ *         description: ID do produto
  *         schema:
  *           type: integer
  *     requestBody:
@@ -70,26 +81,23 @@ stockRoutes.post('/products', (req, res) => controller.createProduct(req, res));
  *       200:
  *         description: Produto atualizado com sucesso
  */
-stockRoutes.put('/products/:id', (req, res) => controller.updateProduct(req, res));
-
-
-
+productsRoutes.put('/products/:id', (req, res) => controller.updateProduct(req, res));
 
 /**
  * @swagger
- * /Stock/products/{id}:
+ * /Products/products/{id}:
  *   delete:
- *     tags: [Stock]
- *     summary: Deleta um produto
+ *     tags: [Products]
+ * 
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
+ *         description: ID do produto
  *         schema:
  *           type: integer
  *     responses:
  *       200:
- *         description: Produto deletado com sucesso
+ *         description: Produto excluído com sucesso
  */
-stockRoutes.delete('/products/:id', (req, res) => controller.deleteProduct(req, res));
-
+productsRoutes.delete('/products/:id', (req, res) => controller.deleteProduct(req, res));

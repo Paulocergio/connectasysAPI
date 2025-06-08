@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { CreateProductUseCase } from "../../application/Stock_cases/CreateProduct";
+import { CreateProductUseCase } from "../../application/products_cases/CreateProduct";
 import { ProductRepository } from "../../infrastructure/repositories/ProductRepository";
-import { UpdateProductUseCase } from "../../application/Stock_cases/UpdateProduct";
-import { DeleteProductUseCase } from "../../application/Stock_cases/DeleteProduct";
+import { UpdateProductUseCase } from "../../application/products_cases/UpdateProduct";
+import { DeleteProductUseCase } from "../../application/products_cases/DeleteProduct";
 
 
 
@@ -14,7 +14,7 @@ const deleteUseCase = new DeleteProductUseCase(productRepository);
 const createProduct = new CreateProductUseCase(productRepository);
 
 
-export class StockController {
+export class ProductController {
   async createProduct(req: Request, res: Response): Promise<void> {
     try {
       const product = await createProduct.execute(req.body);
