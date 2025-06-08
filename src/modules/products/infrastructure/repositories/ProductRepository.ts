@@ -56,6 +56,33 @@ export class ProductRepository implements IProductRepository {
     );
   }
 
+ 
+async incrementQuantity(productId: number, quantity: number): Promise<void> {
+  await db.query(
+    `UPDATE products SET quantity = quantity + $1 WHERE product_id = $2`,
+    [quantity, productId]
+  );
+}
+
+async decrementQuantity(productId: number, quantity: number): Promise<void> {
+  await db.query(
+    `UPDATE products SET quantity = quantity - $1 WHERE product_id = $2`,
+    [quantity, productId]
+  );
+}
+
+async getQuantity(productId: number): Promise<number> {
+  const result = await db.query(
+    `SELECT quantity FROM products WHERE product_id = $1`,
+    [productId]
+  );
+  return result.rows[0]?.quantity ?? 0;
+}
+
+
+
+
+
 }
 
 

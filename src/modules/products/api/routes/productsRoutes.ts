@@ -19,8 +19,27 @@ const controller = new ProductController();
  *     summary: Lista todos os produtos
  *     responses:
  *       200:
- *        
+ *         description: Lista de produtos retornada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   product_id:
+ *                     type: integer
+ *                   productName:
+ *                     type: string
+ *                   barcode:
+ *                     type: string
+ *                   description:
+ *                     type: string
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
  */
+
 productsRoutes.get('/products', (req, res) => controller.getAllProducts(req, res));
 
 /**

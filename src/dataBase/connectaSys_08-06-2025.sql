@@ -74,7 +74,8 @@ CREATE TABLE public.products (
     description text,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     deleted_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    quantity integer DEFAULT 0
 );
 
 
@@ -267,11 +268,13 @@ COPY public.customers (id, first_name, last_name, email, phone, document_number,
 -- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-COPY public.products (product_id, product_name, barcode, description, created_at, deleted_at, updated_at) FROM stdin;
-7	Monitor 24'' IPS	789123456003	Monitor Full HD com borda fina e entrada HDMI	2025-06-07 17:54:26.849794	\N	\N
-5	Teclado Mecânico RGB	789123456001	Teclado com switches azuis e iluminação RGB	2025-06-07 17:54:07.505787	2025-06-07 18:33:23.641467	\N
-6	Mouse Sem Fio	789123456002	Mouse óptico 1600dpi com conexão USB	2025-06-07 17:54:23.216477	2025-06-07 18:35:28.399837	\N
-8	OlaMundo	123456	olaaa	2025-06-07 17:54:31.34632	\N	2025-06-07 18:36:35.605168
+COPY public.products (product_id, product_name, barcode, description, created_at, deleted_at, updated_at, quantity) FROM stdin;
+7	Monitor 24'' IPS	789123456003	Monitor Full HD com borda fina e entrada HDMI	2025-06-07 17:54:26.849794	\N	\N	0
+5	Teclado Mecânico RGB	789123456001	Teclado com switches azuis e iluminação RGB	2025-06-07 17:54:07.505787	2025-06-07 18:33:23.641467	\N	0
+6	Mouse Sem Fio	789123456002	Mouse óptico 1600dpi com conexão USB	2025-06-07 17:54:23.216477	2025-06-07 18:35:28.399837	\N	0
+8	OlaMundo	123456	olaaa	2025-06-07 17:54:31.34632	\N	2025-06-07 18:36:35.605168	0
+10	fdfdfdfdfdfdfdf	fdfdfd	sfdfdfdfd	2025-06-08 12:57:12.673396	2025-06-08 12:57:40.085602	2025-06-08 12:57:31.756979	0
+11	stringDSDSDS	stringDSDSDS	stringDSDSDS	2025-06-08 13:21:31.118562	\N	\N	9
 \.
 
 
@@ -280,6 +283,7 @@ COPY public.products (product_id, product_name, barcode, description, created_at
 --
 
 COPY public.stock_entries (entry_id, product_id, quantity, entry_date) FROM stdin;
+10	11	10	2025-06-08 14:11:58.736509
 \.
 
 
@@ -288,6 +292,7 @@ COPY public.stock_entries (entry_id, product_id, quantity, entry_date) FROM stdi
 --
 
 COPY public.stock_exits (exit_id, product_id, quantity, exit_date) FROM stdin;
+8	11	1	2025-06-08 14:12:24.942717
 \.
 
 
@@ -314,21 +319,21 @@ SELECT pg_catalog.setval('public.customers_id_seq', 74, true);
 -- Name: products_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.products_product_id_seq', 9, true);
+SELECT pg_catalog.setval('public.products_product_id_seq', 11, true);
 
 
 --
 -- Name: stock_entries_entry_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.stock_entries_entry_id_seq', 1, true);
+SELECT pg_catalog.setval('public.stock_entries_entry_id_seq', 10, true);
 
 
 --
 -- Name: stock_exits_exit_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.stock_exits_exit_id_seq', 1, true);
+SELECT pg_catalog.setval('public.stock_exits_exit_id_seq', 8, true);
 
 
 --
