@@ -2,7 +2,7 @@ import { Supplier } from '../../domain/entities/Supplier';
 import { ISupplierRepository } from '../../domain/repositories/ISupplierRepository';
 
 export class CreateSupplier {
-  constructor(private repo: ISupplierRepository) {}
+  constructor(private repo: ISupplierRepository) { }
 
   async execute(data: Omit<Supplier, 'id' | 'createdAt' | 'updatedAt'>) {
     const supplier = new Supplier(0, data.companyName, data.contactName, data.email, data.phone, data.address,
