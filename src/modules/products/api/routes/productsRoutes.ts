@@ -75,7 +75,6 @@ productsRoutes.post('/products', (req, res) => controller.createProduct(req, res
  * /Products/products/{id}:
  *   put:
  *     tags: [Products]
- *  
  *     parameters:
  *       - in: path
  *         name: id
@@ -96,10 +95,15 @@ productsRoutes.post('/products', (req, res) => controller.createProduct(req, res
  *                 type: string
  *               description:
  *                 type: string
+ *               cost_price:
+ *                 type: number
+ *               sale_price:
+ *                 type: number
  *     responses:
  *       200:
  *         description: Produto atualizado com sucesso
  */
+
 productsRoutes.put('/products/:id', (req, res) => controller.updateProduct(req, res));
 
 /**
