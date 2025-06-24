@@ -45,11 +45,6 @@ app.use("/api/v1/Products", productsRoutes);
 app.use("/api/v1/Stock", stockRoutes); 
 app.use('/api/v1/Suppliers', supplierRoutes);
 
-
-
-
-
-
 app.listen(process.env.PORT || 3000, () => {
   console.log(`✅ Server running at http://localhost:${process.env.PORT || 3000}`);
 });
